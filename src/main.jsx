@@ -59,8 +59,14 @@ if (import.meta.env.DEV) {
 init()
 createRoot(document.getElementById('root')).render(
   <StrictMode>
-    <pre>
-      {JSON.stringify(retrieveLaunchParams(), null, 2)}
-    </pre>
+    <div className="container-fluid bg-dark py-3 vh-100">
+      <div className="card">
+        <div className="card-body small">
+          <pre>
+            {JSON.stringify(retrieveLaunchParams(), null, 2)}
+          </pre>
+        </div>
+      </div>
+    </div>
   </StrictMode>,
 )
