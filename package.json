@@ -1,8 +1,9 @@
 {
-  "name": "barbie-oscar2",
+  "name": "barbie-oscar",
   "private": true,
   "version": "0.0.0",
   "type": "module",
+  "homepage": "https://baghe.github.io/barbie-oscar/",
   "scripts": {
     "dev": "vite",
     "build": "vite build",
