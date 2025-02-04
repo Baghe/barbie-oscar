@@ -115,7 +115,7 @@ export default function App({ Private }) {
                                     className="rounded-circle" style={{ width: 64, height: 64 }} />
                                 ) : (
                                   <div className="rounded-circle" style={{ width: 64, height: 64, lineHeight: "64px", backgroundColor: "#f8f9fa" }}>
-                                    <div className="text-center text-primary fw-bold">
+                                    <div className="text-center text-dark fw-bold">
                                       <div className="fs-1">
                                         {User.Name.slice(0, 1)}
                                       </div>
@@ -156,7 +156,7 @@ export default function App({ Private }) {
                                     className="rounded-circle" style={{ width: 128, height: 128 }} />
                                 ) : (
                                   <div className="rounded-circle mx-auto bg-light bg-opacity-75" style={{ width: 128, height: 128, lineHeight: "128px" }}>
-                                    <div className="text-center text-primary fw-bold">
+                                    <div className="text-center text-dark fw-bold">
                                       <div className="fs-1">
                                         {Voted.Name.slice(0, 1)}
                                       </div>
@@ -171,51 +171,51 @@ export default function App({ Private }) {
                           )
                         })()
                       ) : (
-                        <div className="card rounded-5 mb-5">
-                          <div className="card-body">
-                            <div className="d-flex flex-column gap-2">
-                              {Object.values(Category.Candidates).map((Candidate) => {
-                                const Clicked = VoteForm.IdCategory === Category.IdCategory && VoteForm.IdUser === Candidate.IdUser
-                                const User = App.Users[Candidate.IdUser]
-                                const IsMe = Candidate.IdUser === Auth.user.id
-                                return (
-                                  <button key={Candidate.IdUser}
-                                    className={"d-flex align-items-center rounded-pill border-3 cursor-pointer btn p-0 " + (Clicked ? "btn-primary" : "btn-outline-primary")}
-                                    onClick={() => setVoteForm({
-                                      IdCategory: Category.IdCategory,
-                                      IdUser: Candidate.IdUser,
-                                    })} disabled={IsMe}>
-                                    {User.Image ? (
-                                      <img src={User.Image} alt="Candidate"
-                                        className="rounded-circle" style={{ width: 64, height: 64 }} />
-                                    ) : (
-                                      <div className="rounded-circle" style={{ width: 64, height: 64, lineHeight: "64px", backgroundColor: "#f8f9fa" }}>
-                                        <div className="text-center text-primary fw-bold">
-                                          <div className="fs-1">
-                                            {User.Name.slice(0, 1)}
-                                          </div>
+                        <div className="mb-5">
+                          <div className="d-flex flex-column gap-2">
+                            {Object.values(Category.Candidates).map((Candidate) => {
+                              const Clicked = VoteForm.IdCategory === Category.IdCategory && VoteForm.IdUser === Candidate.IdUser
+                              const User = App.Users[Candidate.IdUser]
+                              const IsMe = Candidate.IdUser === Auth.user.id
+                              return (
+                                <button key={Candidate.IdUser}
+                                  className={"p-2 d-flex align-items-center rounded-pill border-3 cursor-pointer btn " + (Clicked ? "btn-primary" : "btn-outline-primary")}
+                                  onClick={() => setVoteForm({
+                                    IdCategory: Category.IdCategory,
+                                    IdUser: Candidate.IdUser,
+                                  })} disabled={IsMe}>
+                                  {User.Image ? (
+                                    <img src={User.Image} alt="Candidate"
+                                      className="rounded-circle" style={{ width: 64, height: 64 }} />
+                                  ) : (
+                                    <div className="rounded-circle" style={{ width: 64, height: 64, lineHeight: "64px", backgroundColor: "#f8f9fa" }}>
+                                      <div className="text-center text-dark fw-bold">
+                                        <div className="fs-1">
+                                          {User.Name.slice(0, 1)}
                                         </div>
+                                      </div>
+                                    </div>
+                                  )}
+                                  <div className="ms-3 text-start lh-1 pe-2">
+                                    <div className="fs-3 mb-0 fw-bold">
+                                      {User.Name}
+                                    </div>
+                                    {Candidate.Note && (
+                                      <div className="text-light mt-1 small">
+                                        {Candidate.Note}
                                       </div>
                                     )}
-                                    <div className="ms-3 text-start lh-1 pe-2">
-                                      <div className="fs-3 mb-0 fw-bold">
-                                        {User.Name}
-                                      </div>
-                                      {Candidate.Note && (
-                                        <div className="text-light mt-1 small">
-                                          {Candidate.Note}
-                                        </div>
-                                      )}
-                                    </div>
-                                  </button>
-                                )
-                              })}
-                            </div>
-
-                            <button className="btn btn-lg btn-success rounded-pill w-100 mt-2" onClick={() => Vote(VoteForm.IdCategory, VoteForm.IdUser)}>
-                              Vota
-                            </button>
+                                  </div>
+                                </button>
+                              )
+                            })}
                           </div>
+
+                          <button className="btn btn-lg btn-success rounded-pill w-100 mt-2 py-3 fs-2 fw-bold"
+                            disabled={!VoteForm.IdCategory || !VoteForm.IdUser}
+                            onClick={() => Vote(VoteForm.IdCategory, VoteForm.IdUser)}>
+                            Vota
+                          </button>
                         </div>
                       )
                     )}
