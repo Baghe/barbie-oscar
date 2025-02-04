@@ -4,6 +4,7 @@ import { init, isTMA, mockTelegramEnv, parseInitData, retrieveLaunchParams } fro
 import App from './App';
 
 if (import.meta.env.DEV) {
+  const RawSearchParam = new URLSearchParams('user=%7B%22id%22%3A1194709210%2C%22first_name%22%3A%22Baghe%22%2C%22last_name%22%3A%22%22%2C%22username%22%3A%22baghe%22%2C%22language_code%22%3A%22it%22%2C%22is_premium%22%3Atrue%2C%22allows_write_to_pm%22%3Atrue%2C%22photo_url%22%3A%22https%3A%5C%2F%5C%2Ft.me%5C%2Fi%5C%2Fuserpic%5C%2F320%5C%2FCwRKdZWlaxUVN6h8u4LYpfHbD33-gtpQoXBIHfjcOPg.svg%22%7D&chat_instance=1506973585231287040&chat_type=private&auth_date=1738667648&signature=Bj5OH-9LM3hA95kqXUsqIEI3tHq2z5r_PmNjpxSrkMv1FttZwX5BOQwdnZJOaTy9ad11ds77nhkPcHB3XdP3Dw&hash=b5e944e749d89311820a3b41de1480f9b4abcb17ca79f3cc3bf5df5fb19e90e0')
   await (async () => {
     if (await isTMA()) {
       return
@@ -12,24 +13,6 @@ if (import.meta.env.DEV) {
     try {
       lp = retrieveLaunchParams()
     } catch (e) {
-      const initDataRaw = new URLSearchParams([
-        ['user', JSON.stringify({
-          id: 99281932,
-          first_name: 'Andrew',
-          last_name: 'Rogue',
-          username: 'rogue',
-          language_code: 'en',
-          is_premium: true,
-          allows_write_to_pm: true,
-        })],
-        ['hash', '89d6079ad6762351f38c6dbbc41bb53048019256a9443988af7a48bcad16ba31'],
-        ['auth_date', '1716922846'],
-        ['start_param', 'debug'],
-        ['chat_type', 'sender'],
-        ['chat_instance', '8428209589180549439'],
-        ['signature', '6fbdaab833d39f54518bd5c3eb3f511d035e68cb'],
-      ]).toString()
-
       lp = {
         themeParams: {
           accentTextColor: '#6ab2f2',
@@ -46,8 +29,8 @@ if (import.meta.env.DEV) {
           subtitleTextColor: '#708499',
           textColor: '#f5f5f5',
         },
-        initData: parseInitData(initDataRaw),
-        initDataRaw,
+        initData: parseInitData(RawSearchParam),
+        initDataRaw: RawSearchParam,
         version: '8',
         platform: 'tdesktop',
       }
