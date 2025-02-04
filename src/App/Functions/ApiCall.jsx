@@ -1,11 +1,8 @@
-import { retrieveLaunchParams } from "@telegram-apps/sdk-react";
-
-export function ApiCall(Action, Values, Callback) {
-  const { initDataRaw } = retrieveLaunchParams();
+export function ApiCall(Auth, Action, Values, Callback) {
   fetch('https://baghe.altervista.org/bot/barbieoscar/', {
     method: 'POST',
     headers: {
-      Authorization: `tma ${initDataRaw}`
+      Authorization: `tma ${Auth}`
     },
     body: JSON.stringify({
       Action: Action,
@@ -14,13 +11,13 @@ export function ApiCall(Action, Values, Callback) {
   }).then(response => response.json())
     .then(data => {
       if (data.Result) {
-        Callback(data);
+        Callback(data)
       } else {
         Callback({
           Result: false,
           Data: null,
           Error: data.Error || 'An error occurred'
-        });
+        })
       }
-    });
+    })
 }
