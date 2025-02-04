@@ -9,7 +9,7 @@ export default function App() {
   const [AppOnline, setAppOnline] = useState(false)
   const [WinnerView, setWinnerView] = useState(false)
   const UpdateOnline = 20
-  const USER_ADMIN = 1194709210 === initData.user.id
+  const USER_ADMIN = 1194709210 == initData.user.id
 
   const [VoteForm, setVoteForm] = useState({
     IdCategory: null,
@@ -147,7 +147,7 @@ export default function App() {
                             <div className="small text-center text-muted">
                               Hai votato per
                             </div>
-                            <div className="alert alert-success rounded-5 mb-5 p-3 text-center">
+                            <div className="bg-success rounded-5 mb-5 p-3 text-center">
                               {Voted.Image ? (
                                 <img src={Voted.Image} alt="Candidate"
                                   className="rounded-circle" style={{ width: 128, height: 128 }} />
@@ -168,7 +168,7 @@ export default function App() {
                         )
                       })()
                     ) : (
-                      <div className="card rounded-5 mb-2">
+                      <div className="card rounded-5 mb-5">
                         <div className="card-body">
                           <div className="d-flex flex-column gap-2">
                             {Object.values(Category.Candidates).map((Candidate) => {
@@ -220,31 +220,33 @@ export default function App() {
               )
             })()
           ) : (
-            <div className="text-center mb-5">
+            <div className="text-center mb-5 py-5">
               <div className="display-4">Nessuna votazione aperta</div>
               <div className="text-muted">Stay tuned</div>
             </div>
           )}
 
-          <div className="card rounded-5 overflow-hidden mt-2">
-            <div className="card-header p-3 text-center fs-5 fw-bold">
-              Categorie
-
-              {USER_ADMIN && (
-                <div className="mt-2 bg-secondary bg-opacity-25 p-2 rounded">
-                  <button className="btn btn-sm btn-danger" onClick={() => CategoryOpen(-1)}>
-                    Chiudi
-                  </button>
-                  <button className="btn btn-sm btn-primary ms-2" onClick={() => setWinnerView(!WinnerView)}>
-                    Winners
-                  </button>
-                </div>
-              )}
-            </div>
+          <div className="display-6 text-center">Categorie</div>
+          <div className="card bg-secondary bg-opacity-25 rounded-5 overflow-hidden mt-2">
+            {USER_ADMIN && (
+              <div className="card-header p-3 text-center fs-5 fw-bold">
+                <button className="btn btn-sm btn-danger" onClick={() => CategoryOpen(-1)}>
+                  Chiudi
+                </button>
+                <button className="btn btn-sm btn-primary ms-2" onClick={() => setWinnerView(!WinnerView)}>
+                  Winners
+                </button>
+              </div>
+            )}
             <div className="card-body">
               {Object.values(App.Categories).map((Category, i, a) => (
                 <div key={Category.IdCategory} className={"py-2" + (i < a.length - 1 ? " border-bottom" : "")}>
-                  <div className="fs-4 text-primary">#{Category.IdCategory} {Category.Name}</div>
+                  <div className="d-flex align-items-center">
+                    {App.OpenVote === Category.IdCategory && (
+                      <span className="badge bg-success rounded-pill me-2">Votazione</span>
+                    )}
+                    <span className="fs-3">#{Category.IdCategory} {Category.Name}</span>
+                  </div>
                   <div className="lh-1">
                     {Object.values(Category.Candidates).sort((a, b) => {
                       return USER_ADMIN ? b.Votes - a.Votes : a.IdUser - b.IdUser
@@ -266,10 +268,13 @@ export default function App() {
                   </div>
 
                   {USER_ADMIN && (
-                    <div className="mt-2 bg-secondary bg-opacity-25 p-2 rounded">
+                    <div className="mt-2 bg-secondary bg-opacity-25 p-2 rounded d-flex justify-content-between align-items-center">
                       <button className="btn btn-sm btn-danger" onClick={() => CategoryOpen(Category.IdCategory)}>
                         Apri
                       </button>
+                      <div>
+                        {Object.values(Category.Candidates).reduce((Votes, Candidate) => Votes + Candidate.Votes, 0)}/{App.Voters}
+                      </div>
                     </div>
                   )}
                 </div>
