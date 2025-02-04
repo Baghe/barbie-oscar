@@ -1,6 +1,7 @@
 import { StrictMode } from 'react'
 import { createRoot } from 'react-dom/client'
 import { init, isTMA, mockTelegramEnv, parseInitData, retrieveLaunchParams } from '@telegram-apps/sdk-react';
+import App from './App';
 
 if (import.meta.env.DEV) {
   await (async () => {
@@ -59,14 +60,6 @@ if (import.meta.env.DEV) {
 init()
 createRoot(document.getElementById('root')).render(
   <StrictMode>
-    <div className="container-fluid bg-dark py-3 vh-100">
-      <div className="card">
-        <div className="card-body small">
-          <pre>
-            {JSON.stringify(retrieveLaunchParams(), null, 2)}
-          </pre>
-        </div>
-      </div>
-    </div>
+    <App />
   </StrictMode>,
 )
