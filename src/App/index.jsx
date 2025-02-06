@@ -9,8 +9,8 @@ export default function App({ Private }) {
   const [App, setApp] = useState(null)
   const [AppTime, setAppTime] = useState(null)
   const [AppOnline, setAppOnline] = useState(false)
+  const [AdminView, setAdminView] = useState(false)
   const UpdateOnline = 20
-  const USER_ADMIN = Private ? false : 1194709210 === Auth.user.id
 
   const [VoteForm, setVoteForm] = useState({
     IdCategory: null,
@@ -103,6 +103,11 @@ export default function App({ Private }) {
               <div>{App.Online} online</div>
             </span>
           )}
+          {1194709210 === Auth.user.id && (
+            <button className="btn btn-sm btn-primary ms-2 py-0" onClick={() => setAdminView(!AdminView)}>
+              {AdminView ? 'Utente' : 'Admin'}
+            </button>
+          )}
         </div>
       )}
 
@@ -137,7 +142,7 @@ export default function App({ Private }) {
                         <div className="fw-bold text-success">Votazione conclusa</div>
                       )}
 
-                      {USER_ADMIN && (
+                      {AdminView && (
                         <button className="btn btn-sm btn-danger" onClick={() => CategoryOpen(-1)}>
                           Chiudi votazione
                         </button>
@@ -243,14 +248,14 @@ export default function App({ Private }) {
 
                   <div className="row g-2 justify-content-center">
                     {Object.values(Category.Candidates).sort((a, b) => {
-                      return USER_ADMIN ? b.Votes - a.Votes : a.IdUser - b.IdUser
+                      return AdminView ? b.Votes - a.Votes : a.IdUser - b.IdUser
                     }).map((Candidate) => {
                       const User = App.Users[Candidate.IdUser]
                       return (
                         <div key={Candidate.IdUser} className="col-sm-6 col-md-4 col-lg-2">
                           <div className={"d-flex flex-column align-items-center text-center p-2 rounded-3 bg-dark shadow h-100" + (Candidate.Hidden ? " opacity-50" : "")}>
 
-                            {USER_ADMIN && (
+                            {AdminView && (
                               <div className="w-100 mb-2 bg-secondary bg-opacity-25 p-2 rounded d-flex justify-content-between align-items-center">
                                 <div>
                                   {Candidate.Hidden ? (
@@ -291,7 +296,7 @@ export default function App({ Private }) {
                     })}
                   </div>
 
-                  {USER_ADMIN && (
+                  {AdminView && (
                     <div className="mt-2 bg-secondary bg-opacity-25 p-2 rounded d-flex justify-content-between align-items-center">
                       <div className="flex-grow-1 d-flex gap-2">
                         <button className="btn btn-sm btn-primary" onClick={() => CategoryOpen(Category.IdCategory)}>
