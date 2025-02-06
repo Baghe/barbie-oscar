@@ -89,6 +89,16 @@ export default function App({ Private }) {
     return Name.split(' ').map((Word) => Word.slice(0, 1)).join('')
   }
 
+  if (App && !App.User) {
+    return (
+      <div className="container-fluid py-2">
+        <div className="text-center">
+          <div className="display-2">Accesso negato</div>
+        </div>
+      </div>
+    )
+  }
+
   return (
     <div className="container-fluid py-2">
       {Auth && (
@@ -317,7 +327,6 @@ export default function App({ Private }) {
           </div>
         </>
       )}
-
     </div>
   )
 }
