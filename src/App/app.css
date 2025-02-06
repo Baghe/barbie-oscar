@@ -1,3 +1,31 @@
 body {
   min-height: 100vh;
 }
+
+.text-barbie {
+  color: #d9048d;
+}
+
+.codystar-light {
+  font-family: "Codystar", serif;
+  font-weight: 300;
+  font-style: normal;
+}
+
+.codystar-regular {
+  font-family: "Codystar", serif;
+  font-weight: 400;
+  font-style: normal;
+}
+
+.cherry-swash-regular {
+  font-family: "Cherry Swash", serif;
+  font-weight: 400;
+  font-style: normal;
+}
+
+.cherry-swash-bold {
+  font-family: "Cherry Swash", serif;
+  font-weight: 700;
+  font-style: normal;
+}
