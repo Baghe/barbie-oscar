@@ -151,12 +151,6 @@ export default function App({ Private }) {
                       ) : (
                         <div className="fw-bold text-success">Votazione conclusa</div>
                       )}
-
-                      {AdminView && (
-                        <button className="btn btn-sm btn-danger" onClick={() => CategoryOpen(-1)}>
-                          Chiudi votazione
-                        </button>
-                      )}
                     </div>
 
                     {MyVote ? (
@@ -235,6 +229,14 @@ export default function App({ Private }) {
                         </button>
                       </div>
                     )}
+
+                    <div className="text-center">
+                      {AdminView && (
+                        <button className="btn btn-sm btn-danger" onClick={() => CategoryOpen(-1)}>
+                          Chiudi votazione
+                        </button>
+                      )}
+                    </div>
                   </>
                 )
               })()
@@ -299,7 +301,7 @@ export default function App({ Private }) {
                               )}
                             </div>
                             <div className="fw-bold">{User.Name}</div>
-                            {Candidate.Note && <div className="small text-muted lh-1">({Candidate.Note})</div>}
+                            {Candidate.Note && <div className="small text-muted lh-1">{Candidate.Note}</div>}
                           </div>
                         </div>
                       )
